@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate '单台录入' %}{% endblock %}
+{% block eyebrow %}EQUIPMENT / NEW{% endblock %}
+{% block page_title %}{% translate '单台录入' %}{% endblock %}
+{% block content %}
+<header class="page-lead">
+  <div><p class="kicker">ASSET REGISTRY</p><h1>{% translate '新增自动化设备' %}</h1><p>{% translate '选择所属仓库和设备分类，录入设备铭牌、位置与运行状态。' %}</p></div>
+</header>
+<form method="post" class="panel plan-editor">
+  {% csrf_token %}
+  {% if form.errors %}
+    <div class="form-error-summary" role="alert">
+      <strong>{% translate '设备未创建，请检查以下字段：' %}</strong>
+      <ul>
+        {% for field in form %}{% for error in field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}：{{ error }}</a></li>{% endfor %}{% endfor %}
+        {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <div class="plan-band"><span>01</span><div><strong>{% translate '设备信息' %}</strong><small>{% translate '带 * 的字段为必填项' %}</small></div></div>
+  <div class="panel-body form-grid">
+    {% for field in form %}
+      <div class="field {% if field.name == 'location_detail' %}full{% endif %}">
+        <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+        {{ field }}
+        {% if field.help_text %}<small class="dependency-help">{{ field.help_text }}</small>{% endif %}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="form-footer"><a class="button" href="{% url 'assets:equipment-list' %}">{% translate '取消' %}</a><button class="button primary" type="submit">{% translate '创建设备' %}</button></div>
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate '设备台账' %}{% endblock %}
+{% block eyebrow %}ASSET REGISTRY{% endblock %}
+{% block page_title %}{% translate '自动化设备' %}{% endblock %}
+{% block content %}
+{% translate '搜索设备编码、名称、序列号或位置' as search_placeholder %}
+{% translate '位置未填写' as missing_location %}
+{% translate '型号未填写' as missing_model %}
+<header class="page-lead">
+  <div><p class="kicker">EQUIPMENT / COMPONENTS</p><h1>{% translate '设备台账' %}</h1><p>{% translate '以仓库为边界管理整机、部件层级、关键度与运行状态。' %}</p></div>
+  <div class="page-actions"><a class="button primary" href="{% url 'data-imports:equipment' %}">{% translate '批量导入设备' %}</a>{% if can_modify_equipment %}<a class="button" href="{% url 'assets:equipment-create' %}">{% translate '单台录入' %}</a>{% endif %}</div>
+</header>
+
+<form class="filter-bar" method="get">
+  <input class="form-control" type="search" name="q" value="{{ filters.q }}" placeholder="{{ search_placeholder }}">
+  <select class="form-select" name="warehouse"><option value="">{% translate '全部仓库' %}</option>{% for warehouse in warehouses %}<option value="{{ warehouse.id }}" {% if filters.warehouse == warehouse.id|stringformat:'s' %}selected{% endif %}>{{ warehouse.code }} · {{ warehouse.name }}</option>{% endfor %}</select>
+  <select class="form-select" name="status"><option value="">{% translate '全部状态' %}</option>{% for value, label in status_choices %}<option value="{{ value }}" {% if filters.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+  <button class="button dark" type="submit">{% translate '筛选' %}</button>
+</form>
+
+<section class="panel">
+  <div class="panel-header"><div><h2>{% translate '设备清单' %}</h2><p>{% blocktranslate with count=page.paginator.count %}共 {{ count }} 台设备{% endblocktranslate %}</p></div></div>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead><tr><th>{% translate '设备' %}</th><th>{% translate '仓库 / 位置' %}</th><th>{% translate '分类' %}</th><th>{% translate '制造信息' %}</th><th>{% translate '关键度' %}</th><th>{% translate '状态' %}</th></tr></thead>
+      <tbody>
+      {% for equipment in page %}
+        <tr>
+          <td><a class="cell-title" href="{% url 'assets:equipment-detail' equipment.id %}">{{ equipment.name }}</a><span class="cell-sub mono">{{ equipment.asset_code }}</span></td>
+          <td><span class="cell-title">{{ equipment.warehouse.code }}</span><span class="cell-sub">{{ equipment.location_detail|default:missing_location }}</span></td>
+          <td>{{ equipment.category.name }}</td>
+          <td><span class="cell-title">{{ equipment.manufacturer|default:'—' }}</span><span class="cell-sub">{{ equipment.model|default:missing_model }}</span></td>
+          <td><span class="priority priority-{{ equipment.criticality|lower }}">{{ equipment.get_criticality_display }}</span></td>
+          <td><span class="status status-{{ equipment.status|lower }}">{{ equipment.get_status_display }}</span></td>
+        </tr>
+      {% empty %}<tr><td colspan="6" class="panel-empty">{% translate '没有符合条件的设备。' %}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include 'includes/pagination.html' %}
+</section>
+{% endblock %}

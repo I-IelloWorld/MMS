@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load i18n tz %}
+{% block title %}{{ work_order.number }}{% endblock %}
+{% block eyebrow %}WORK ORDER / {{ work_order.number }}{% endblock %}
+{% block page_title %}{% translate '工单详情' %}{% endblock %}
+{% block content %}
+{% timezone work_order.timezone %}
+<header class="order-hero">
+  <div><p class="kicker">{{ work_order.get_work_type_display }} · {{ work_order.warehouse.code }}</p><h1>{{ work_order.display_title }}</h1><p class="mono">{{ work_order.number }}</p></div>
+  <div class="order-state"><span class="priority priority-{{ work_order.priority|lower }}">{{ work_order.get_priority_display }} {% translate '优先级' %}</span><span class="status status-{{ work_order.status|lower }}">{{ work_order.get_status_display }}</span></div>
+</header>
+
+<section class="order-layout">
+  <div class="order-main">
+    <section class="panel">
+      <div class="panel-header"><div><h2>{% translate '执行任务' %}</h2><p>{% blocktranslate with count=work_order.tasks.count %}{{ count }} 个执行步骤{% endblocktranslate %}</p></div></div>
+      <div class="task-list">
+      {% for task in work_order.tasks.all %}
+        <article class="task-row {% if task.status == 'DONE' %}done{% endif %}">
+          <div class="task-index">{{ task.sequence|stringformat:'02d' }}</div>
+          {% translate '按标准作业要求完成检查并记录结果。' as default_instructions %}
+          <div class="task-copy"><strong>{{ task.title }}</strong><p>{{ task.instructions|default:default_instructions }}</p>{% if task.requires_photo %}<small class="photo-required">{% translate '必须上传现场照片' %}</small>{% endif %}{% if task.result %}<small>{% translate '结果' %}：{{ task.result }}</small>{% endif %}{% if task.photo %}<small><a href="{{ task.photo.url }}" target="_blank" rel="noopener">{% translate '查看已上传照片' %}</a></small>{% endif %}</div>
+          <div class="task-action">
+            {% if task.status == 'DONE' %}<span class="status status-done">{% translate '已完成' %}</span>
+            {% elif can_execute and work_order.status == 'IN_PROGRESS' %}
+              {% translate '执行结果（可选）' as result_placeholder %}
+              <form method="post" enctype="multipart/form-data">{% csrf_token %}<input type="hidden" name="action" value="task:{{ task.id }}"><input class="mini-input" type="text" name="note" placeholder="{{ result_placeholder }}"><label class="task-photo-input"><span>{% if task.requires_photo %}{% translate '现场照片（必填）' %}{% else %}{% translate '现场照片（可选）' %}{% endif %}</span><input type="file" name="photo" accept="image/jpeg,image/png,image/webp"{% if task.requires_photo %} required{% endif %}></label><button class="button small soft" type="submit">{% translate '标记完成' %}</button></form>
+            {% else %}<span class="status">{% translate '未开始' %}</span>{% endif %}
+          </div>
+        </article>
+      {% empty %}<div class="panel-empty">{% translate '该工单没有任务步骤。' %}</div>{% endfor %}
+      </div>
+    </section>
+
+    <section class="panel section-gap">
+      <div class="panel-header"><div><h2>{% translate '处理记录' %}</h2><p>{% translate '状态变化与现场动作' %}</p></div></div>
+      <div class="timeline">
+      {% translate '系统' as system_actor %}
+      {% for log in work_order.logs.all %}<article><i></i><div><strong>{{ log.get_action_display|default:log.action }}</strong><span>{{ log.actor|default:system_actor }} · {{ log.created_at|date:'Y-m-d H:i' }}</span>{% if log.note %}<p>{{ log.note }}</p>{% endif %}</div></article>{% empty %}<div class="panel-empty">{% translate '暂无处理日志。' %}</div>{% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <aside class="order-side">
+    <section class="panel">
+      <div class="panel-header"><div><h2>{% translate '工单信息' %}</h2><p>{% translate '设备、开始日期与责任人' %}</p></div></div>
+      <dl class="definition-list">
+        {% translate '整机' as whole_equipment %}{% translate '待认领' as unassigned %}
+        <div><dt>{% translate '仓库' %}</dt><dd>{{ work_order.warehouse.name }}</dd></div>
+        <div><dt>{% translate '设备' %}</dt><dd><a href="{% url 'assets:equipment-detail' work_order.equipment.id %}">{{ work_order.equipment.name }}</a><small>{{ work_order.equipment.asset_code }}</small></dd></div>
+        <div><dt>{% translate '部件' %}</dt><dd>{{ work_order.component.name|default:whole_equipment }}</dd></div>
+        <div><dt>{% translate '负责人' %}</dt><dd>{{ work_order.assignee|default:unassigned }}</dd></div>
+        <div><dt>{% translate '工单时区' %}</dt><dd>{{ work_order.get_timezone_display }}</dd></div>
+        <div><dt>{% translate '工单开始生成日期' %}</dt><dd class="{% if work_order.is_overdue %}danger-text{% endif %}">{{ work_order.due_at|date:'Y-m-d H:i' }}</dd></div>
+        <div><dt>{% translate '任务时间' %}</dt><dd>{% blocktranslate with hours=work_order.task_duration_hours %}{{ hours }} 小时{% endblocktranslate %}<small>{% translate '逾期时间' %}：{{ work_order.deadline_at|date:'Y-m-d H:i' }}</small></dd></div>
+        <div><dt>{% translate '工单频率' %}</dt><dd>{{ work_order.get_schedule_type_display }}</dd></div>
+        {% if work_order.schedule_type == 'RECURRING' %}<div><dt>{% translate '周期' %}</dt><dd>{% blocktranslate with interval=work_order.recurrence_interval unit=work_order.get_recurrence_unit_display %}每 {{ interval }} {{ unit }}{% endblocktranslate %}{% if work_order.next_occurrence_at %}<small>{% translate '下次生成' %}：{{ work_order.next_occurrence_at|date:'Y-m-d H:i' }}</small>{% endif %}</dd></div>{% endif %}
+        {% if work_order.recurrence_source %}<div><dt>{% translate '周期来源' %}</dt><dd><a href="{% url 'workorders:detail' work_order.recurrence_source.id %}">{{ work_order.recurrence_source.number }}</a></dd></div>{% endif %}
+      </dl>
+    </section>
+    <section class="panel action-panel">
+      <div class="panel-header"><div><h2>{% translate '推进工单' %}</h2><p>{% translate '操作受状态与仓库角色约束' %}</p></div></div>
+      <form method="post" class="stack-form panel-body">{% csrf_token %}
+        {% translate '处理说明或退回原因' as note_placeholder %}
+        <textarea name="note" rows="3" placeholder="{{ note_placeholder }}"></textarea>
+        {% if can_execute and work_order.status == 'OPEN' %}<button class="button primary wide" name="action" value="take">{% translate '认领工单' %}</button>{% endif %}
+        {% if can_execute and work_order.status == 'ASSIGNED' %}<button class="button primary wide" name="action" value="start">{% translate '开始执行' %}</button>{% endif %}
+        {% if can_execute and work_order.status == 'IN_PROGRESS' %}<button class="button primary wide" name="action" value="complete">{% translate '提交完成' %}</button>{% endif %}
+        {% if can_manage and work_order.status == 'COMPLETED' %}<button class="button primary wide" name="action" value="close">{% translate '验收关闭' %}</button><button class="button danger wide" name="action" value="return">{% translate '退回整改' %}</button>{% endif %}
+        {% if work_order.status == 'CLOSED' or work_order.status == 'CANCELLED' %}<div class="closed-note">{% translate '工单已进入终态，无需继续操作。' %}</div>{% endif %}
+      </form>
+    </section>
+  </aside>
+</section>
+{% endtimezone %}
+{% endblock %}

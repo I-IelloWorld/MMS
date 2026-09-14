@@ -1,0 +1,79 @@
+{% load i18n static %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% translate '已登录用户' as logged_user_label %}
+<!doctype html>
+<html lang="{{ CURRENT_LANGUAGE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}MMS{% endblock %} | {% translate '设备维保管理' %}</title>
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="{% url 'dashboard:home' %}">
+        <span class="brand-mark">M</span>
+        <span><strong>MMS</strong><small>Warehouse Reliability</small></span>
+      </a>
+
+      <div class="sidebar-label">{% translate '运行中心' %}</div>
+      <nav class="main-nav" aria-label="{% translate '主导航' %}">
+        <a class="{% if request.resolver_match.namespace == 'dashboard' %}active{% endif %}" href="{% url 'dashboard:home' %}"><span>01</span>{% translate '工作台' %}</a>
+        <a class="{% if request.resolver_match.namespace == 'assets' %}active{% endif %}" href="{% url 'assets:equipment-list' %}"><span>02</span>{% translate '设备台账' %}</a>
+        <a class="{% if request.resolver_match.namespace == 'workorders' %}active{% endif %}" href="{% url 'workorders:list' %}"><span>03</span>{% translate '维保工单' %}</a>
+        <a class="{% if request.resolver_match.namespace == 'data-imports' %}active{% endif %}" href="{% url 'data-imports:list' %}"><span>04</span>{% translate '数据导入' %}</a>
+        <a class="{% if request.resolver_match.namespace == 'notifications' %}active{% endif %}" href="{% url 'notifications:list' %}"><span>05</span>{% translate '消息中心' %}{% if unread_notification_count %}<b>{{ unread_notification_count }}</b>{% endif %}</a>
+      </nav>
+
+      <div class="sidebar-label warehouse-label">{% translate '授权仓库' %}</div>
+      <div class="warehouse-stack">
+        {% for warehouse in nav_warehouses %}
+          <div class="warehouse-chip"><i></i><span>{{ warehouse.code }}</span><small>{{ warehouse.name }}</small></div>
+        {% empty %}
+          <div class="sidebar-empty">{% translate '尚未分配仓库' %}</div>
+        {% endfor %}
+      </div>
+
+      {% if request.user.is_staff %}
+        <a class="admin-link" href="{% url 'admin:index' %}">{% translate '系统管理' %} <span>↗</span></a>
+      {% endif %}
+    </aside>
+
+    <div class="main-stage">
+      <header class="topbar">
+        <button class="nav-toggle" type="button" data-nav-toggle aria-label="{% translate '打开导航' %}">MENU</button>
+        <div class="topbar-context">
+          <span>{% block eyebrow %}MMS CONTROL ROOM{% endblock %}</span>
+          <strong>{% block page_title %}{% translate '运行工作台' %}{% endblock %}</strong>
+        </div>
+        <div class="user-menu">
+          <form class="language-switcher" method="post" action="{% url 'set_language' %}">
+            {% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}">
+            <select name="language" aria-label="{% translate '语言' %}" onchange="this.form.submit()">
+              {% get_available_languages as AVAILABLE_LANGUAGES %}
+              {% for code, name in AVAILABLE_LANGUAGES %}<option value="{{ code }}"{% if code == CURRENT_LANGUAGE %} selected{% endif %}>{{ name }}</option>{% endfor %}
+            </select>
+          </form>
+          <div class="user-avatar">{{ request.user.display_name|default:request.user.username|slice:':1'|upper }}</div>
+          <div><strong>{{ request.user.display_name|default:request.user.username }}</strong><small>{{ request.user.email|default:logged_user_label }}</small></div>
+          <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit">{% translate '退出' %}</button></form>
+        </div>
+      </header>
+
+      <main class="content">
+        {% if messages %}
+          <div class="message-stack">
+            {% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}
+          </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+  <div class="mobile-scrim" data-nav-toggle></div>
+  <script src="{% static 'js/app.js' %}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

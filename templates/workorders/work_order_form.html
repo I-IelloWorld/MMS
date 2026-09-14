@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% translate '创建工单' %}{% endblock %}
+{% block eyebrow %}WORK ORDER / NEW{% endblock %}
+{% block page_title %}{% translate '创建工单' %}{% endblock %}
+{% block content %}
+<header class="page-lead">
+  <div><p class="kicker">DIRECT SCHEDULING</p><h1>{% translate '直接创建工单' %}</h1></div>
+</header>
+<form method="post" class="panel plan-editor" data-work-order-form data-options-url="{% url 'workorders:options' %}">
+  {% csrf_token %}
+  {% if form.errors %}
+    <div class="form-error-summary" role="alert" aria-labelledby="work-order-errors-title">
+      <strong id="work-order-errors-title">{% translate '工单未创建，请检查以下字段：' %}</strong>
+      <ul>
+        {% for field in form %}
+          {% for error in field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}：{{ error }}</a></li>{% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  {% if task_formset.non_form_errors %}
+    <div class="form-error-summary" role="alert">
+      <strong>{% translate '工单任务信息有误，请检查后重试。' %}</strong>
+      {{ task_formset.non_form_errors }}
+    </div>
+  {% endif %}
+  <div class="plan-band"><span>01</span><div><strong>{% translate '频率与对象' %}</strong><small>{% translate '设置执行频率、仓库、设备和负责人' %}</small></div></div>
+  <div class="panel-body form-grid">
+    {% for field in form %}
+      <div class="field {% if field.name == 'title' or field.name == 'description' %}full{% endif %}"{% if field.name == 'recurrence_unit' or field.name == 'recurrence_interval' or field.name == 'recurrence_end_at' %} data-recurrence-field{% endif %}>
+        <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+        {{ field }}
+        {% if field.name == 'equipment' %}<small class="dependency-help">{% translate '选择仓库后加载对应设备。' %}</small>{% endif %}
+        {% if field.name == 'component' %}<small class="dependency-help">{% translate '选择设备后加载对应部件；不选表示整机。' %}</small>{% endif %}
+        {% if field.name == 'recurrence_end_at' %}<small class="dependency-help">{% translate '留空表示持续生成后续工单。' %}</small>{% endif %}
+        {% if field.help_text %}<small class="dependency-help">{{ field.help_text }}</small>{% endif %}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="plan-band"><span>02</span><div><strong>{% translate '工单任务（可选）' %}</strong><small>{% translate '创建工单时直接添加执行步骤和照片要求' %}</small></div></div>
+  <div class="panel-body task-builder" data-task-formset>
+    {{ task_formset.management_form }}
+    <div class="task-builder-list" data-task-form-list>
+      {% for task_form in task_formset %}
+        {% include 'workorders/includes/task_create_row.html' with task_form=task_form %}
+      {% endfor %}
+    </div>
+    <template data-task-empty-form>
+      {% include 'workorders/includes/task_create_row.html' with task_form=task_formset.empty_form %}
+    </template>
+    <button class="button soft" type="button" data-add-task><span aria-hidden="true">+</span> {% translate '添加任务' %}</button>
+  </div>
+  <div class="form-footer"><a class="button" href="{% url 'workorders:list' %}">{% translate '取消' %}</a><button class="button primary" type="submit">{% translate '创建工单' %}</button></div>
+</form>
+{% endblock %}
+{% block extra_scripts %}<script src="{% static 'js/work-order-form.js' %}"></script><script src="{% static 'js/work-order-task-formset.js' %}"></script>{% endblock %}

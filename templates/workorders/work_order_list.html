@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n tz %}
+{% block title %}{% translate '维保工单' %}{% endblock %}
+{% block eyebrow %}WORK ORDERS{% endblock %}
+{% block page_title %}{% translate '维保工单' %}{% endblock %}
+{% block content %}
+<header class="page-lead">
+  <div><p class="kicker">EXECUTION / FIELD WORK</p><h1>{% translate '工单队列' %}</h1><p>{% translate '一次性与周期性工单统一创建、执行和追踪。' %}</p></div>
+  <div class="page-actions">{% if can_manage_work_orders %}<a class="button primary" href="{% url 'workorders:create' %}">{% translate '创建工单' %} <span>+</span></a>{% endif %}<a class="button soft" href="?scope=mine">{% translate '只看我的工单' %}</a></div>
+</header>
+<form class="filter-bar compact" method="get">
+  <select class="form-select" name="warehouse"><option value="">{% translate '全部仓库' %}</option>{% for warehouse in warehouses %}<option value="{{ warehouse.id }}" {% if filters.warehouse == warehouse.id|stringformat:'s' %}selected{% endif %}>{{ warehouse.code }} · {{ warehouse.name }}</option>{% endfor %}</select>
+  <select class="form-select" name="status"><option value="">{% translate '全部状态' %}</option>{% for value, label in status_choices %}<option value="{{ value }}" {% if filters.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+  <select class="form-select" name="schedule_type"><option value="">{% translate '全部频率' %}</option>{% for value, label in schedule_choices %}<option value="{{ value }}" {% if filters.schedule_type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+  <select class="form-select" name="scope"><option value="">{% translate '仓库全部工单' %}</option><option value="mine" {% if filters.scope == 'mine' %}selected{% endif %}>{% translate '我的工单' %}</option></select>
+  <button class="button dark" type="submit">{% translate '筛选' %}</button>
+</form>
+<section class="panel">
+  <div class="panel-header"><div><h2>{% translate '工单清单' %}</h2><p>{% blocktranslate with count=page.paginator.count %}{{ count }} 张工单{% endblocktranslate %}</p></div></div>
+  <div class="data-table-wrap"><table class="data-table"><thead><tr><th>{% translate '工单' %}</th><th>{% translate '频率' %}</th><th>{% translate '设备 / 仓库' %}</th><th>{% translate '部件' %}</th><th>{% translate '负责人' %}</th><th>{% translate '开始生成' %}</th><th>{% translate '任务时间' %}</th><th>{% translate '优先级' %}</th><th>{% translate '状态' %}</th></tr></thead><tbody>
+    {% for order in page %}<tr>
+      <td><a class="cell-title mono" href="{% url 'workorders:detail' order.id %}">{{ order.number }}</a><span class="cell-sub">{{ order.title|truncatechars:36 }}{% if order.recurrence_label %} {{ order.recurrence_label }}{% endif %}</span></td>
+      <td>{{ order.get_schedule_type_display }}</td>
+      <td><span class="cell-title">{{ order.equipment.name }}</span><span class="cell-sub">{{ order.warehouse.code }} · {{ order.equipment.asset_code }}</span></td>
+      {% translate '整机' as whole_equipment %}{% translate '待认领' as unassigned %}
+      <td>{{ order.component.name|default:whole_equipment }}</td><td>{{ order.assignee|default:unassigned }}</td>
+      <td><span class="cell-title">{{ order.due_at|timezone:order.timezone|date:'Y-m-d H:i' }}</span><span class="cell-sub">{{ order.get_timezone_display }}</span>{% if order.is_overdue %}<span class="cell-sub danger-text">{% translate '已逾期' %}</span>{% endif %}</td>
+      <td>{{ order.task_duration_hours }} {% translate '小时' %}</td>
+      <td><span class="priority priority-{{ order.priority|lower }}">{{ order.get_priority_display }}</span></td><td><span class="status status-{{ order.status|lower }}">{{ order.get_status_display }}</span></td>
+    </tr>{% empty %}<tr><td colspan="9" class="panel-empty">{% translate '没有符合条件的工单。' %}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% include 'includes/pagination.html' %}
+</section>
+{% endblock %}

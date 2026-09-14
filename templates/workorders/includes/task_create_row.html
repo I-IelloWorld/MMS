@@ -1,0 +1,23 @@
+{% load i18n %}
+<article class="task-builder-row" data-task-form>
+  <div class="task-builder-index" data-task-number></div>
+  <div class="task-builder-fields">
+    <div class="field">
+      <label for="{{ task_form.title.id_for_label }}">{{ task_form.title.label }} *</label>
+      {{ task_form.title }}
+      {{ task_form.title.errors }}
+    </div>
+    <div class="field task-instructions-field">
+      <label for="{{ task_form.instructions.id_for_label }}">{{ task_form.instructions.label }}</label>
+      {{ task_form.instructions }}
+      {{ task_form.instructions.errors }}
+    </div>
+    <div class="task-photo-requirement">
+      {{ task_form.requires_photo }}
+      <label for="{{ task_form.requires_photo.id_for_label }}">{{ task_form.requires_photo.label }}</label>
+      {{ task_form.requires_photo.errors }}
+    </div>
+  </div>
+  <span class="task-delete-control">{{ task_form.DELETE }}</span>
+  <button class="icon-button task-remove" type="button" data-remove-task title="{% translate '删除任务' %}" aria-label="{% translate '删除任务' %}">×</button>
+</article>

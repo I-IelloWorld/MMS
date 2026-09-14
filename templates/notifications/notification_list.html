@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate '消息中心' %}{% endblock %}
+{% block eyebrow %}INBOX / ALERTS{% endblock %}
+{% block page_title %}{% translate '消息中心' %}{% endblock %}
+{% block content %}
+<header class="page-lead">
+  <div><p class="kicker">RIGHT WAREHOUSE · RIGHT ENGINEER</p><h1>{% translate '通知与提醒' %}</h1><p>{% translate '工单发布、临期与逾期消息只推送给相应仓库的有效工程师。' %}</p></div>
+  <form method="post">{% csrf_token %}<button class="button" type="submit">{% translate '全部标为已读' %}</button></form>
+</header>
+<section class="panel notification-feed">
+  {% for item in page %}
+    <article class="notification-item {% if not item.read_at %}unread{% endif %}">
+      <div class="notification-signal"></div>
+      {% if item.notification.entity_type == 'workorder' and item.notification.entity_id %}
+        <a class="notification-copy" href="{% url 'workorders:detail' item.notification.entity_id %}">
+          <span>{{ item.notification.get_notification_type_display }} · {{ item.notification.created_at|date:'Y-m-d H:i' }}</span>
+          <strong>{{ item.notification.title }}</strong>
+          <p>{{ item.notification.message }}</p>
+        </a>
+      {% else %}
+        <div class="notification-copy">
+          <span>{{ item.notification.get_notification_type_display }} · {{ item.notification.created_at|date:'Y-m-d H:i' }}</span>
+          <strong>{{ item.notification.title }}</strong>
+          <p>{{ item.notification.message }}</p>
+        </div>
+      {% endif %}
+      <div class="notification-action">{% if not item.read_at %}<form method="post" action="{% url 'notifications:mark-read' item.id %}">{% csrf_token %}<button class="button small" type="submit">{% translate '标为已读' %}</button></form>{% else %}<span class="status status-sent">{% translate '已读' %}</span>{% endif %}</div>
+    </article>
+  {% empty %}<div class="panel-empty">{% translate '消息中心当前为空。' %}</div>{% endfor %}
+  {% include 'includes/pagination.html' %}
+</section>
+{% endblock %}

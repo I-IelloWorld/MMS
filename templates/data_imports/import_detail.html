@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate '导入批次' %}{% endblock %}
+{% block eyebrow %}IMPORT / {{ batch.id|stringformat:'s'|slice:':8'|upper }}{% endblock %}
+{% block page_title %}{% translate '导入结果' %}{% endblock %}
+{% block content %}
+{% translate '整行' as whole_row %}
+<header class="page-lead"><div><p class="kicker">{{ batch.warehouse.code }} · {{ batch.created_at|date:'Y-m-d H:i' }}</p><h1>{% translate '导入批次结果' %}</h1><p>{{ batch.source_file.name }}</p></div><div class="page-actions"><a class="button" href="{% url 'data-imports:list' %}">{% translate '返回批次' %}</a><a class="button primary" href="{% url 'data-imports:equipment' %}">{% translate '再次导入' %}</a></div></header>
+<section class="metric-grid three"><article class="metric-card accent-teal"><span>TOTAL ROWS</span><strong>{{ batch.total_rows }}</strong><p>{% translate '处理行数' %}</p></article><article class="metric-card accent-yellow"><span>SUCCESS</span><strong>{{ batch.success_rows }}</strong><p>{% translate '新增或更新成功' %}</p></article><article class="metric-card accent-red"><span>FAILED</span><strong>{{ batch.failed_rows }}</strong><p>{% translate '需要修正的行' %}</p></article></section>
+<section class="panel"><div class="panel-header"><div><h2>{% translate '错误明细' %}</h2><p>{% translate '包含文件行号、字段和失败原因' %}</p></div><span class="status status-{{ batch.status|lower }}">{{ batch.get_status_display }}</span></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>{% translate '行号' %}</th><th>{% translate '字段' %}</th><th>{% translate '错误代码' %}</th><th>{% translate '原因' %}</th></tr></thead><tbody>{% for error in batch.errors.all %}<tr><td class="mono">{{ error.row_number }}</td><td>{{ error.field_name|default:whole_row }}</td><td class="mono">{{ error.error_code }}</td><td>{{ error.error_message }}</td></tr>{% empty %}<tr><td colspan="4" class="panel-empty">{% translate '所有数据均已成功导入。' %}</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

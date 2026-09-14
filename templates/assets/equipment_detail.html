@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n tz %}
+{% block title %}{{ equipment.name }}{% endblock %}
+{% block eyebrow %}ASSET / {{ equipment.asset_code }}{% endblock %}
+{% block page_title %}{% translate '设备详情' %}{% endblock %}
+{% block content %}
+{% translate '尚未登记设备位置' as missing_location %}
+{% translate '制造商未填写' as missing_manufacturer %}
+{% translate '未分类部件' as uncategorized_component %}
+{% translate '整机' as whole_equipment %}
+<header class="asset-hero">
+  <div class="asset-id"><span>{{ equipment.warehouse.code }}</span><strong>{{ equipment.asset_code }}</strong></div>
+  <div><p class="kicker">{{ equipment.category.name }}</p><h1>{{ equipment.name }}</h1><p>{{ equipment.location_detail|default:missing_location }} · {{ equipment.manufacturer|default:missing_manufacturer }} {{ equipment.model }}</p></div>
+  <div class="asset-state"><span class="status status-{{ equipment.status|lower }}">{{ equipment.get_status_display }}</span><b class="priority priority-{{ equipment.criticality|lower }}">{{ equipment.get_criticality_display }} {% translate '关键度' %}</b></div>
+</header>
+
+<section class="detail-grid">
+  <div class="panel">
+    <div class="panel-header"><div><h2>{% translate '设备档案' %}</h2><p>{% translate '铭牌与投产信息' %}</p></div></div>
+    <dl class="definition-grid">
+      <div><dt>{% translate '制造商' %}</dt><dd>{{ equipment.manufacturer|default:'—' }}</dd></div>
+      <div><dt>{% translate '型号' %}</dt><dd>{{ equipment.model|default:'—' }}</dd></div>
+      <div><dt>{% translate '序列号' %}</dt><dd class="mono">{{ equipment.serial_number|default:'—' }}</dd></div>
+      <div><dt>{% translate '投产日期' %}</dt><dd>{{ equipment.commissioned_on|date:'Y-m-d'|default:'—' }}</dd></div>
+      <div><dt>{% translate '仓库' %}</dt><dd>{{ equipment.warehouse.name }}</dd></div>
+      <div><dt>{% translate '时区' %}</dt><dd>{{ equipment.warehouse.timezone }}</dd></div>
+    </dl>
+  </div>
+  <div class="panel">
+    <div class="panel-header"><div><h2>{% translate '部件结构' %}</h2><p>{% blocktranslate with count=equipment.components.count %}{{ count }} 个已登记部件{% endblocktranslate %}</p></div>{% if can_modify_equipment and request.user.is_staff %}<a class="text-link" href="{% url 'admin:assets_equipment_change' equipment.id %}">{% translate '编辑' %} →</a>{% endif %}</div>
+    <div class="component-list">
+      {% for component in equipment.components.all %}<div><span class="mono">{{ component.code }}</span><strong>{{ component.name }}</strong><small>{{ component.component_type|default:uncategorized_component }}</small><i class="status status-{{ component.status|lower }}">{{ component.get_status_display }}</i></div>{% empty %}<div class="panel-empty">{% translate '尚未登记部件。' %}</div>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="panel section-gap">
+  <div class="panel-header"><div><h2>{% translate '关联工单' %}</h2><p>{% translate '该设备的一次性与周期性维护记录' %}</p></div><a class="button small primary" href="{% url 'workorders:create' %}">{% translate '创建工单' %}</a></div>
+  <div class="data-table-wrap"><table class="data-table"><thead><tr><th>{% translate '工单' %}</th><th>{% translate '维保对象' %}</th><th>{% translate '频率' %}</th><th>{% translate '工单开始生成日期' %}</th><th>{% translate '状态' %}</th></tr></thead><tbody>
+  {% for order in equipment.work_orders.all %}<tr><td><a class="cell-title" href="{% url 'workorders:detail' order.id %}">{{ order.display_title }}</a><span class="cell-sub mono">{{ order.number }}</span></td><td>{{ order.component|default:whole_equipment }}</td><td>{{ order.get_schedule_type_display }}</td><td>{{ order.due_at|timezone:order.timezone|date:'Y-m-d H:i' }}<span class="cell-sub">{{ order.get_timezone_display }}</span></td><td><span class="status status-{{ order.status|lower }}">{{ order.get_status_display }}</span></td></tr>{% empty %}<tr><td colspan="5" class="panel-empty">{% translate '该设备尚无工单。' %}</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+{% endblock %}

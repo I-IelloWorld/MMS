@@ -1,0 +1,56 @@
+{% load i18n static %}
+{% get_current_language as CURRENT_LANGUAGE %}
+<!doctype html>
+<html lang="{{ CURRENT_LANGUAGE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% translate '登录' %} | MMS {% translate '设备维保管理' %}</title>
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-story">
+      <div class="login-brand"><span>M</span> MMS / WAREHOUSE RELIABILITY</div>
+      <div class="login-copy">
+        <p class="kicker">MAINTENANCE CONTROL SYSTEM</p>
+        <h1>{% translate '让每一次维保，都发生在故障之前。' %}</h1>
+        <p>{% translate '连接仓库、自动化设备、工单与现场工程师。到期工单自动抵达正确的人。' %}</p>
+      </div>
+      <div class="signal-grid">
+        <div><strong>01</strong><span>{% translate '多仓库设备台账' %}</span></div>
+        <div><strong>02</strong><span>{% translate '部件级周期工单' %}</span></div>
+        <div><strong>03</strong><span>{% translate '工单定向推送' %}</span></div>
+      </div>
+    </section>
+    <section class="login-panel">
+      <div class="login-form-wrap">
+        <form class="language-switcher login-language" method="post" action="{% url 'set_language' %}">
+          {% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}">
+          <select name="language" aria-label="{% translate '语言' %}" onchange="this.form.submit()">
+            {% get_available_languages as AVAILABLE_LANGUAGES %}
+            {% for code, name in AVAILABLE_LANGUAGES %}<option value="{{ code }}"{% if code == CURRENT_LANGUAGE %} selected{% endif %}>{{ name }}</option>{% endfor %}
+          </select>
+        </form>
+        <p class="kicker">AUTHORIZED ACCESS</p>
+        <h2>{% translate '进入运行工作台' %}</h2>
+        <p class="muted">{% translate '使用管理员或仓库工程师账号登录。' %}</p>
+        {% if form.errors %}<div class="message error">{% translate '账号或密码不正确，请重新输入。' %}</div>{% endif %}
+        <form method="post" class="stack-form">
+          {% csrf_token %}
+          <label for="id_username">{% translate '账号' %}</label>
+          {% translate '例如：admin' as username_placeholder %}
+          <input type="text" name="username" autofocus required id="id_username" placeholder="{{ username_placeholder }}">
+          <label for="id_password">{% translate '密码' %}</label>
+          {% translate '输入密码' as password_placeholder %}
+          <input type="password" name="password" required id="id_password" placeholder="{{ password_placeholder }}">
+          {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+          <button class="button primary wide" type="submit">{% translate '登录系统' %} <span>→</span></button>
+        </form>
+        <p class="login-foot">{% translate '首次运行请执行' %} <code>python manage.py createsuperuser</code></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,2 @@
+asset_code,name,category_code,manufacturer,model,serial_number,location_detail,criticality,commissioned_on,status,component_code,component_name,component_type
+CV-001,1号主输送机,CONVEYOR,Interroll,MCP-01,SN202608001,A区2层东侧,HIGH,2026-08-01,ACTIVE,MOTOR-01,主驱动电机,MOTOR

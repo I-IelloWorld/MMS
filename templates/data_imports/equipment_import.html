@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate '导入设备' %}{% endblock %}
+{% block eyebrow %}DATA INTAKE / EQUIPMENT{% endblock %}
+{% block page_title %}{% translate '导入自动化设备' %}{% endblock %}
+{% block content %}
+<header class="page-lead"><div><p class="kicker">CSV / XLSX · MAX 4 MB</p><h1>{% translate '把存量设备带入 MMS' %}</h1><p>{% translate '下载模板并使用下拉选项填写仓库、分类、关键度和状态；上传时选择的目标仓库必须与模板一致。' %}</p></div><div class="page-actions"><a class="button primary" href="{% url 'data-imports:equipment-template' %}">{% translate '下载 Excel 模板' %}</a></div></header>
+<section class="import-layout">
+  <form method="post" enctype="multipart/form-data" class="panel upload-panel">
+    {% csrf_token %}
+    <div class="upload-zone"><span>↑</span><strong>{% translate '选择设备清单文件' %}</strong><p>{% translate '支持 UTF-8 CSV 或 XLSX，最大 4 MB' %}</p>{{ form.source_file }}{{ form.source_file.errors }}</div>
+    <div class="panel-body stack-form"><label for="{{ form.warehouse.id_for_label }}">{% translate '目标仓库' %}</label>{{ form.warehouse }}{{ form.warehouse.errors }}{% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}<button class="button primary wide" type="submit">{% translate '开始校验并导入' %}</button></div>
+  </form>
+  <aside class="panel import-guide">
+    <div class="panel-header"><div><h2>{% translate '模板字段' %}</h2><p>{% translate '前三列为必填项' %}</p></div></div>
+    <ol><li><strong>asset_code</strong><span>{% translate '仓库内唯一设备编码' %}</span></li><li><strong>name</strong><span>{% translate '设备名称' %}</span></li><li><strong>category_code</strong><span>{% translate '已存在的设备分类编码' %}</span></li><li><strong>manufacturer / model</strong><span>{% translate '制造商与型号' %}</span></li><li><strong>criticality / status</strong><span>{% translate '关键度与运行状态' %}</span></li><li><strong>component_code / name</strong><span>{% translate '可选：同步建立一级部件' %}</span></li></ol>
+    <p class="guide-note">{% translate 'CSV 无法保存下拉选项；请使用 Excel 模板获得下拉选择，系统仍支持导入 UTF-8 CSV。' %}</p>
+  </aside>
+</section>
+{% endblock %}

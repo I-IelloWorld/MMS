@@ -1,0 +1,9 @@
+.form-row label.required::after {
+  color: #ba2121;
+  content: " *";
+}
+
+.form-row.errors {
+  border-left: 3px solid #ba2121;
+  padding-left: 9px;
+}

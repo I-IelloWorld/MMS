@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate '数据导入' %}{% endblock %}
+{% block eyebrow %}DATA INTAKE{% endblock %}
+{% block page_title %}{% translate '数据导入' %}{% endblock %}
+{% block content %}
+<header class="page-lead">
+  <div><p class="kicker">BATCH / VALIDATION / AUDIT</p><h1>{% translate '设备导入批次' %}</h1><p>{% translate 'CSV/XLSX 文件按目标仓库导入，成功与失败行分别记录。' %}</p></div>
+  <div class="page-actions"><a class="button primary" href="{% url 'data-imports:equipment' %}">{% translate '上传设备文件' %}</a><a class="button" href="{% url 'data-imports:equipment-template' %}">{% translate '下载 Excel 模板' %}</a></div>
+</header>
+<section class="panel">
+  <div class="panel-header"><div><h2>{% translate '导入历史' %}</h2><p>{% blocktranslate with count=page.paginator.count %}{{ count }} 个批次{% endblocktranslate %}</p></div></div>
+  <div class="data-table-wrap"><table class="data-table"><thead><tr><th>{% translate '批次' %}</th><th>{% translate '仓库' %}</th><th>{% translate '文件' %}</th><th>{% translate '结果' %}</th><th>{% translate '创建人' %}</th><th>{% translate '状态' %}</th></tr></thead><tbody>
+  {% for batch in page %}<tr><td><a class="cell-title mono" href="{% url 'data-imports:detail' batch.id %}">{{ batch.id|stringformat:'s'|slice:':8'|upper }}</a><span class="cell-sub">{{ batch.created_at|date:'Y-m-d H:i' }}</span></td><td>{{ batch.warehouse.code }} · {{ batch.warehouse.name }}</td><td>{{ batch.source_file.name|cut:'imports/'|truncatechars:36 }}</td><td><span class="cell-title">{% blocktranslate with success=batch.success_rows failed=batch.failed_rows %}{{ success }} 成功 / {{ failed }} 失败{% endblocktranslate %}</span><span class="cell-sub">{% blocktranslate with total=batch.total_rows %}共 {{ total }} 行{% endblocktranslate %}</span></td><td>{{ batch.created_by }}</td><td><span class="status status-{{ batch.status|lower }}">{{ batch.get_status_display }}</span></td></tr>{% empty %}<tr><td colspan="6" class="panel-empty">{% translate '还没有导入批次。' %}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% include 'includes/pagination.html' %}
+</section>
+{% endblock %}

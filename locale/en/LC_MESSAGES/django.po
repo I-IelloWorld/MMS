@@ -1,0 +1,1319 @@
+msgid ""
+msgstr "Project-Id-Version: MMS 1.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "设备维保管理"
+msgstr "Maintenance Management System"
+
+msgid "运行中心"
+msgstr "Operations"
+
+msgid "主导航"
+msgstr "Main navigation"
+
+msgid "工作台"
+msgstr "Dashboard"
+
+msgid "运行工作台"
+msgstr "Operations dashboard"
+
+msgid "设备台账"
+msgstr "Equipment"
+
+msgid "维保工单"
+msgstr "Work orders"
+
+msgid "数据导入"
+msgstr "Data import"
+
+msgid "消息中心"
+msgstr "Notifications"
+
+msgid "授权仓库"
+msgstr "Authorized warehouses"
+
+msgid "尚未分配仓库"
+msgstr "No warehouse assigned"
+
+msgid "系统管理"
+msgstr "Administration"
+
+msgid "打开导航"
+msgstr "Open navigation"
+
+msgid "语言"
+msgstr "Language"
+
+msgid "已登录用户"
+msgstr "Signed-in user"
+
+msgid "退出"
+msgstr "Sign out"
+
+msgid "创建工单"
+msgstr "Create work order"
+
+msgid "直接创建工单"
+msgstr "Create a work order directly"
+
+msgid "频率与对象"
+msgstr "Frequency and asset"
+
+msgid "设置执行频率、仓库、设备和负责人"
+msgstr "Set the frequency, warehouse, equipment, and assignee"
+
+msgid "取消"
+msgstr "Cancel"
+
+msgid "选择仓库后加载对应设备。"
+msgstr "Select a warehouse to load its equipment."
+
+msgid "选择设备后加载对应部件；不选表示整机。"
+msgstr "Select equipment to load its components; leave blank for the whole machine."
+
+msgid "留空表示持续生成后续工单。"
+msgstr "Leave blank to continue generating future work orders."
+
+msgid "一次性工单"
+msgstr "One-time work order"
+
+msgid "周期性工单"
+msgstr "Recurring work order"
+
+msgid "天"
+msgstr "Day"
+
+msgid "周"
+msgstr "Week"
+
+msgid "月"
+msgstr "Month"
+
+msgid "季度"
+msgstr "Quarter"
+
+msgid "年"
+msgstr "Year"
+
+msgid "预防性维保"
+msgstr "Preventive maintenance"
+
+msgid "故障维修"
+msgstr "Corrective maintenance"
+
+msgid "巡检"
+msgstr "Inspection"
+
+msgid "低"
+msgstr "Low"
+
+msgid "中"
+msgstr "Medium"
+
+msgid "高"
+msgstr "High"
+
+msgid "紧急"
+msgstr "Critical"
+
+msgid "草稿"
+msgstr "Draft"
+
+msgid "待分派"
+msgstr "Open"
+
+msgid "已分派"
+msgstr "Assigned"
+
+msgid "进行中"
+msgstr "In progress"
+
+msgid "待验收"
+msgstr "Pending acceptance"
+
+msgid "已关闭"
+msgstr "Closed"
+
+msgid "已取消"
+msgstr "Cancelled"
+
+msgid "工单编号"
+msgstr "Work order number"
+
+msgid "工单频率"
+msgstr "Frequency"
+
+msgid "到期时间"
+msgstr "Due at"
+
+msgid "工单开始生成日期"
+msgstr "Work order generation start"
+
+msgid "一次性工单使用该日期；周期性工单从该日期开始计算后续生成时间。"
+msgstr "For a one-time order, use this date; for a recurring order, future generation times are calculated from it."
+
+msgid "周期单位"
+msgstr "Cycle unit"
+
+msgid "周期数值"
+msgstr "Cycle interval"
+
+msgid "周期结束时间"
+msgstr "Recurrence end"
+
+msgid "下次生成时间"
+msgstr "Next generation"
+
+msgid "周期有效"
+msgstr "Recurrence active"
+
+msgid "周期来源工单"
+msgstr "Recurring source"
+
+msgid "工单队列"
+msgstr "Work order queue"
+
+msgid "一次性与周期性工单统一创建、执行和追踪。"
+msgstr "Create, execute, and track one-time and recurring work orders together."
+
+msgid "只看我的工单"
+msgstr "My work orders"
+
+msgid "全部仓库"
+msgstr "All warehouses"
+
+msgid "全部状态"
+msgstr "All statuses"
+
+msgid "全部频率"
+msgstr "All frequencies"
+
+msgid "仓库全部工单"
+msgstr "All warehouse orders"
+
+msgid "我的工单"
+msgstr "My work orders"
+
+msgid "筛选"
+msgstr "Filter"
+
+msgid "工单清单"
+msgstr "Work orders"
+
+msgid "%(count)s 张工单"
+msgstr "%(count)s work orders"
+
+msgid "工单"
+msgstr "Work order"
+
+msgid "频率"
+msgstr "Frequency"
+
+msgid "设备 / 仓库"
+msgstr "Equipment / warehouse"
+
+msgid "部件"
+msgstr "Component"
+
+msgid "负责人"
+msgstr "Assignee"
+
+msgid "到期"
+msgstr "Due"
+
+msgid "开始生成"
+msgstr "Generation start"
+
+msgid "优先级"
+msgstr "Priority"
+
+msgid "状态"
+msgstr "Status"
+
+msgid "整机"
+msgstr "Whole machine"
+
+msgid "待认领"
+msgstr "Unassigned"
+
+msgid "没有符合条件的工单。"
+msgstr "No matching work orders."
+
+msgid "工单详情"
+msgstr "Work order details"
+
+msgid "执行任务"
+msgstr "Execution tasks"
+
+msgid "%(count)s 个执行步骤"
+msgstr "%(count)s execution steps"
+
+msgid "处理记录"
+msgstr "Activity log"
+
+msgid "状态变化与现场动作"
+msgstr "Status changes and field actions"
+
+msgid "工单信息"
+msgstr "Work order information"
+
+msgid "设备、期限与责任人"
+msgstr "Equipment, due date, and assignee"
+
+msgid "设备、开始日期与责任人"
+msgstr "Equipment, generation start, and assignee"
+
+msgid "仓库"
+msgstr "Warehouse"
+
+msgid "设备"
+msgstr "Equipment"
+
+msgid "周期"
+msgstr "Cycle"
+
+msgid "每 %(interval)s %(unit)s"
+msgstr "Every %(interval)s %(unit)s"
+
+msgid "下次生成"
+msgstr "Next generation"
+
+msgid "周期来源"
+msgstr "Recurring source"
+
+msgid "推进工单"
+msgstr "Advance work order"
+
+msgid "操作受状态与仓库角色约束"
+msgstr "Actions depend on status and warehouse role"
+
+msgid "把维护窗口，留在故障发生之前。"
+msgstr "Keep maintenance ahead of failure."
+
+msgid "当前账号覆盖 %(count)s 个仓库。设备、工单与工程师在同一个运行视图中持续对齐。"
+msgstr "This account covers %(count)s warehouses. Equipment, work orders, and engineers stay aligned in one operational view."
+
+msgid "导入自动化设备"
+msgstr "Import automation equipment"
+
+msgid "开放工单"
+msgstr "Open work orders"
+
+msgid "%(count)s 项已逾期"
+msgstr "%(count)s overdue"
+
+msgid "优先处理队列"
+msgstr "Priority queue"
+
+msgid "按到期时间排序的仓库工单"
+msgstr "Warehouse work orders ordered by due date"
+
+msgid "按开始生成日期排序的仓库工单"
+msgstr "Warehouse work orders ordered by generation start"
+
+msgid "查看全部"
+msgstr "View all"
+
+msgid "按下一生成时间自动排队"
+msgstr "Queued by next generation time"
+
+msgid "暂无运行中的周期性工单。"
+msgstr "No active recurring work orders."
+
+msgid "查看周期工单"
+msgstr "View recurring orders"
+
+msgid "登录"
+msgstr "Sign in"
+
+msgid "让每一次维保，都发生在故障之前。"
+msgstr "Make every maintenance action happen before failure."
+
+msgid "连接仓库、自动化设备、工单与现场工程师。到期工单自动抵达正确的人。"
+msgstr "Connect warehouses, automation equipment, work orders, and field engineers. Due work reaches the right person automatically."
+
+msgid "部件级周期工单"
+msgstr "Component-level recurring orders"
+
+msgid "进入运行工作台"
+msgstr "Enter operations dashboard"
+
+msgid "使用管理员或仓库工程师账号登录。"
+msgstr "Sign in with an administrator or warehouse engineer account."
+
+msgid "账号或密码不正确，请重新输入。"
+msgstr "Incorrect username or password. Please try again."
+
+msgid "账号"
+msgstr "Username"
+
+msgid "密码"
+msgstr "Password"
+
+msgid "登录系统"
+msgstr "Sign in"
+
+msgid "角色编码"
+msgstr "Role code"
+
+msgid "角色名称"
+msgstr "Role name"
+
+msgid "角色说明"
+msgstr "Role description"
+
+msgid "可接收工单"
+msgstr "Can receive work orders"
+
+msgid "可管理工单"
+msgstr "Can manage work orders"
+
+msgid "系统权限"
+msgstr "System permissions"
+
+msgid "角色成员可获得的 Django 系统权限。"
+msgstr "Django permissions granted to role members."
+
+msgid "每个数据类型仅提供 view（查看）和 modify（新增、修改、删除）两种权限。"
+msgstr "Each data type provides only view and modify (add, change, and delete) permissions."
+
+msgid "有效"
+msgstr "Active"
+
+msgid "仓库角色"
+msgstr "Warehouse roles"
+
+msgid "角色"
+msgstr "Role"
+
+msgid "自动化设备"
+msgstr "Automation equipment"
+
+msgid "搜索设备编码、名称、序列号或位置"
+msgstr "Search by equipment code, name, serial number, or location"
+
+msgid "位置未填写"
+msgstr "Location not provided"
+
+msgid "型号未填写"
+msgstr "Model not provided"
+
+msgid "以仓库为边界管理整机、部件层级、关键度与运行状态。"
+msgstr "Manage machines, component hierarchies, criticality, and operating status by warehouse."
+
+msgid "批量导入设备"
+msgstr "Import equipment in bulk"
+
+msgid "单台录入"
+msgstr "Add one equipment item"
+
+msgid "设备清单"
+msgstr "Equipment list"
+
+msgid "共 %(count)s 台设备"
+msgstr "%(count)s equipment items"
+
+msgid "仓库 / 位置"
+msgstr "Warehouse / location"
+
+msgid "分类"
+msgstr "Category"
+
+msgid "制造信息"
+msgstr "Manufacturing information"
+
+msgid "关键度"
+msgstr "Criticality"
+
+msgid "没有符合条件的设备。"
+msgstr "No matching equipment."
+
+msgid "设备详情"
+msgstr "Equipment details"
+
+msgid "尚未登记设备位置"
+msgstr "Equipment location not recorded"
+
+msgid "制造商未填写"
+msgstr "Manufacturer not provided"
+
+msgid "未分类部件"
+msgstr "Uncategorized component"
+
+msgid "设备档案"
+msgstr "Equipment record"
+
+msgid "铭牌与投产信息"
+msgstr "Nameplate and commissioning information"
+
+msgid "制造商"
+msgstr "Manufacturer"
+
+msgid "型号"
+msgstr "Model"
+
+msgid "序列号"
+msgstr "Serial number"
+
+msgid "投产日期"
+msgstr "Commissioned on"
+
+msgid "时区"
+msgstr "Time zone"
+
+msgid "部件结构"
+msgstr "Component structure"
+
+msgid "%(count)s 个已登记部件"
+msgstr "%(count)s registered components"
+
+msgid "编辑"
+msgstr "Edit"
+
+msgid "尚未登记部件。"
+msgstr "No components have been recorded."
+
+msgid "关联工单"
+msgstr "Related work orders"
+
+msgid "该设备的一次性与周期性维护记录"
+msgstr "One-time and recurring maintenance records for this equipment"
+
+msgid "维保对象"
+msgstr "Maintenance target"
+
+msgid "该设备尚无工单。"
+msgstr "This equipment has no work orders."
+
+msgid "分页"
+msgstr "Pagination"
+
+msgid "上一页"
+msgstr "Previous"
+
+msgid "下一页"
+msgstr "Next"
+
+msgid "导入设备"
+msgstr "Import equipment"
+
+msgid "把存量设备带入 MMS"
+msgstr "Bring existing equipment into MMS"
+
+msgid "先选择目标仓库，再上传设备文件。模板不包含仓库列，防止设备被误写入其他仓库。"
+msgstr "Select the target warehouse before uploading. The template omits the warehouse column to prevent equipment from being assigned to the wrong warehouse."
+
+msgid "选择设备清单文件"
+msgstr "Choose an equipment file"
+
+msgid "支持 UTF-8 CSV 或 XLSX，最大 4 MB"
+msgstr "UTF-8 CSV or XLSX, up to 4 MB"
+
+msgid "目标仓库"
+msgstr "Target warehouse"
+
+msgid "开始校验并导入"
+msgstr "Validate and import"
+
+msgid "模板字段"
+msgstr "Template fields"
+
+msgid "前三列为必填项"
+msgstr "The first three columns are required"
+
+msgid "仓库内唯一设备编码"
+msgstr "Equipment code unique within the warehouse"
+
+msgid "设备名称"
+msgstr "Equipment name"
+
+msgid "已存在的设备分类编码"
+msgstr "Existing equipment category code"
+
+msgid "制造商与型号"
+msgstr "Manufacturer and model"
+
+msgid "关键度与运行状态"
+msgstr "Criticality and operating status"
+
+msgid "可选：同步建立一级部件"
+msgstr "Optional: create a top-level component"
+
+msgid "完整字段与示例位于需求文档附录 A。"
+msgstr "See Appendix A of the requirements document for all fields and examples."
+
+msgid "设备导入批次"
+msgstr "Equipment import batches"
+
+msgid "CSV/XLSX 文件按目标仓库导入，成功与失败行分别记录。"
+msgstr "CSV/XLSX files are imported by target warehouse, with successful and failed rows recorded separately."
+
+msgid "上传设备文件"
+msgstr "Upload equipment file"
+
+msgid "导入历史"
+msgstr "Import history"
+
+msgid "%(count)s 个批次"
+msgstr "%(count)s batches"
+
+msgid "批次"
+msgstr "Batch"
+
+msgid "文件"
+msgstr "File"
+
+msgid "结果"
+msgstr "Result"
+
+msgid "创建人"
+msgstr "Created by"
+
+msgid "%(success)s 成功 / %(failed)s 失败"
+msgstr "%(success)s succeeded / %(failed)s failed"
+
+msgid "共 %(total)s 行"
+msgstr "%(total)s rows total"
+
+msgid "还没有导入批次。"
+msgstr "No import batches yet."
+
+msgid "导入批次"
+msgstr "Import batch"
+
+msgid "导入结果"
+msgstr "Import results"
+
+msgid "整行"
+msgstr "Entire row"
+
+msgid "导入批次结果"
+msgstr "Import batch results"
+
+msgid "返回批次"
+msgstr "Back to batches"
+
+msgid "再次导入"
+msgstr "Import again"
+
+msgid "处理行数"
+msgstr "Rows processed"
+
+msgid "新增或更新成功"
+msgstr "Created or updated successfully"
+
+msgid "需要修正的行"
+msgstr "Rows requiring correction"
+
+msgid "错误明细"
+msgstr "Error details"
+
+msgid "包含文件行号、字段和失败原因"
+msgstr "Includes file row, field, and failure reason"
+
+msgid "行号"
+msgstr "Row"
+
+msgid "字段"
+msgstr "Field"
+
+msgid "错误代码"
+msgstr "Error code"
+
+msgid "原因"
+msgstr "Reason"
+
+msgid "所有数据均已成功导入。"
+msgstr "All data imported successfully."
+
+msgid "通知与提醒"
+msgstr "Notifications and reminders"
+
+msgid "工单发布、临期与逾期消息只推送给相应仓库的有效工程师。"
+msgstr "New, upcoming, and overdue work-order messages are sent only to active engineers in the relevant warehouse."
+
+msgid "全部标为已读"
+msgstr "Mark all as read"
+
+msgid "标为已读"
+msgstr "Mark as read"
+
+msgid "已读"
+msgstr "Read"
+
+msgid "消息中心当前为空。"
+msgstr "There are no notifications."
+
+msgid "工单健康度"
+msgstr "Work-order health"
+
+msgid "运行中的自动化设备"
+msgstr "Active automation equipment"
+
+msgid "仍需推进的维保工单"
+msgstr "Work orders still requiring action"
+
+msgid "已超过到期时间"
+msgstr "Past due"
+
+msgid "已过开始生成日期仍未完成"
+msgstr "Past the generation start and still incomplete"
+
+msgid "未来七天到期工单"
+msgstr "Work orders due in the next seven days"
+
+msgid "未来七天开始生成的工单"
+msgstr "Work orders starting generation in the next seven days"
+
+msgid "已逾期"
+msgstr "Overdue"
+
+msgid "还没有工单。"
+msgstr "No work orders yet."
+
+msgid "多仓库设备台账"
+msgstr "Multi-warehouse equipment registry"
+
+msgid "工单定向推送"
+msgstr "Targeted work-order delivery"
+
+msgid "例如：admin"
+msgstr "For example: admin"
+
+msgid "输入密码"
+msgstr "Enter password"
+
+msgid "首次运行请执行"
+msgstr "For the first run, execute"
+
+msgid "按标准作业要求完成检查并记录结果。"
+msgstr "Complete the inspection according to the standard procedure and record the result."
+
+msgid "执行结果（可选）"
+msgstr "Result (optional)"
+
+msgid "标记完成"
+msgstr "Mark complete"
+
+msgid "未开始"
+msgstr "Not started"
+
+msgid "已完成"
+msgstr "Completed"
+
+msgid "该工单没有任务步骤。"
+msgstr "This work order has no task steps."
+
+msgid "系统"
+msgstr "System"
+
+msgid "暂无处理日志。"
+msgstr "No activity log yet."
+
+msgid "处理说明或退回原因"
+msgstr "Processing note or return reason"
+
+msgid "认领工单"
+msgstr "Claim work order"
+
+msgid "开始执行"
+msgstr "Start work"
+
+msgid "提交完成"
+msgstr "Submit completion"
+
+msgid "验收关闭"
+msgstr "Accept and close"
+
+msgid "退回整改"
+msgstr "Return for correction"
+
+msgid "工单已进入终态，无需继续操作。"
+msgstr "This work order is in a final state and needs no further action."
+
+msgid "请先选择仓库"
+msgstr "Select a warehouse first"
+
+msgid "请先选择设备"
+msgstr "Select equipment first"
+
+msgid "正在加载…"
+msgstr "Loading..."
+
+msgid "请选择设备"
+msgstr "Select equipment"
+
+msgid "该仓库没有运行中的设备"
+msgstr "This warehouse has no active equipment"
+
+msgid "待认领（不指定负责人）"
+msgstr "Unassigned (no assignee)"
+
+msgid "该仓库没有可接单人员"
+msgstr "This warehouse has no eligible assignees"
+
+msgid "整机（不选择部件）"
+msgstr "Whole machine (no component)"
+
+msgid "整机（没有已登记部件）"
+msgstr "Whole machine (no registered components)"
+
+msgid "设备加载失败"
+msgstr "Failed to load equipment"
+
+msgid "负责人加载失败"
+msgstr "Failed to load assignees"
+
+msgid "部件加载失败"
+msgstr "Failed to load components"
+
+msgid "MMS 信息"
+msgstr "MMS information"
+
+msgid "MMS 系统管理"
+msgstr "MMS administration"
+
+msgid "MMS 管理后台"
+msgstr "MMS admin"
+
+msgid "主数据与业务配置"
+msgstr "Master data and business configuration"
+
+msgid "工单标识"
+msgstr "Work-order identification"
+
+msgid "仓库与维保对象"
+msgstr "Warehouse and maintenance target"
+
+msgid "周期设置"
+msgstr "Recurrence settings"
+
+msgid "系统信息"
+msgstr "System information"
+
+msgid "执行信息"
+msgstr "Execution information"
+
+msgid "工单类型"
+msgstr "Work-order type"
+
+msgid "标题"
+msgstr "Title"
+
+msgid "说明"
+msgstr "Description"
+
+msgid "开始时间"
+msgstr "Started at"
+
+msgid "完成时间"
+msgstr "Completed at"
+
+msgid "关闭时间"
+msgstr "Closed at"
+
+msgid "顺序"
+msgstr "Sequence"
+
+msgid "任务标题"
+msgstr "Task title"
+
+msgid "操作说明"
+msgstr "Instructions"
+
+msgid "必须上传照片"
+msgstr "Photo required"
+
+msgid "执行结果"
+msgstr "Execution result"
+
+msgid "完成人"
+msgstr "Completed by"
+
+msgid "工单任务"
+msgstr "Work-order tasks"
+
+msgid "操作者"
+msgstr "Actor"
+
+msgid "动作"
+msgstr "Action"
+
+msgid "原状态"
+msgstr "Previous status"
+
+msgid "新状态"
+msgstr "New status"
+
+msgid "备注"
+msgstr "Notes"
+
+msgid "工单日志"
+msgstr "Work-order logs"
+
+msgid "分类编码"
+msgstr "Category code"
+
+msgid "分类名称"
+msgstr "Category name"
+
+msgid "上级分类"
+msgstr "Parent category"
+
+msgid "设备分类"
+msgstr "Equipment categories"
+
+msgid "设备编码"
+msgstr "Equipment code"
+
+msgid "位置"
+msgstr "Location"
+
+msgid "扩展属性"
+msgstr "Additional attributes"
+
+msgid "上级部件"
+msgstr "Parent component"
+
+msgid "部件编码"
+msgstr "Component code"
+
+msgid "部件名称"
+msgstr "Component name"
+
+msgid "部件类型"
+msgstr "Component type"
+
+msgid "设备部件"
+msgstr "Equipment components"
+
+msgid "启用"
+msgstr "Active"
+
+msgid "停用"
+msgstr "Inactive"
+
+msgid "已退役"
+msgstr "Retired"
+
+msgid "关键"
+msgstr "Critical"
+
+msgid "仓库编码"
+msgstr "Warehouse code"
+
+msgid "仓库名称"
+msgstr "Warehouse name"
+
+msgid "地址"
+msgstr "Address"
+
+msgid "仓库组织"
+msgstr "Warehouse organization"
+
+msgid "用户"
+msgstr "User"
+
+msgid "主要仓库"
+msgstr "Primary warehouse"
+
+msgid "接收通知"
+msgstr "Receive notifications"
+
+msgid "仓库成员"
+msgstr "Warehouse members"
+
+msgid "邮箱"
+msgstr "Email"
+
+msgid "姓名"
+msgstr "Display name"
+
+msgid "电话"
+msgstr "Phone"
+
+msgid "账号与人员"
+msgstr "Accounts and people"
+
+msgid "设备与部件"
+msgstr "Equipment and components"
+
+msgid "已上传"
+msgstr "Uploaded"
+
+msgid "校验中"
+msgstr "Validating"
+
+msgid "待执行"
+msgstr "Ready"
+
+msgid "导入中"
+msgstr "Importing"
+
+msgid "失败"
+msgstr "Failed"
+
+msgid "源文件"
+msgstr "Source file"
+
+msgid "导入类型"
+msgstr "Import type"
+
+msgid "总行数"
+msgstr "Total rows"
+
+msgid "成功行数"
+msgstr "Successful rows"
+
+msgid "失败行数"
+msgstr "Failed rows"
+
+msgid "结束时间"
+msgstr "Finished at"
+
+msgid "导入错误"
+msgstr "Import errors"
+
+msgid "错误说明"
+msgstr "Error description"
+
+msgid "原始数据"
+msgstr "Raw data"
+
+msgid "新工单"
+msgstr "New work order"
+
+msgid "工单到期提醒"
+msgstr "Work order due reminder"
+
+msgid "工单逾期"
+msgstr "Work order overdue"
+
+msgid "系统消息"
+msgstr "System message"
+
+msgid "通知类型"
+msgstr "Notification type"
+
+msgid "消息内容"
+msgstr "Message"
+
+msgid "对象类型"
+msgstr "Object type"
+
+msgid "对象 ID"
+msgstr "Object ID"
+
+msgid "幂等键"
+msgstr "Idempotency key"
+
+msgid "通知"
+msgstr "Notification"
+
+msgid "接收人"
+msgstr "Recipient"
+
+msgid "渠道"
+msgstr "Channel"
+
+msgid "发送状态"
+msgstr "Delivery status"
+
+msgid "发送时间"
+msgstr "Sent at"
+
+msgid "已读时间"
+msgstr "Read at"
+
+msgid "失败原因"
+msgstr "Failure reason"
+
+msgid "重试次数"
+msgstr "Retry count"
+
+msgid "通知接收记录"
+msgstr "Notification recipients"
+
+msgid "站内"
+msgstr "In-app"
+
+msgid "邮件"
+msgstr "Email"
+
+msgid "待发送"
+msgstr "Pending"
+
+msgid "已发送"
+msgstr "Sent"
+
+msgid "消息通知"
+msgstr "Notifications"
+
+msgid "通用支撑"
+msgstr "Common services"
+
+msgid "工单 %(number)s 已创建。"
+msgstr "Work order %(number)s was created."
+
+msgid "工单未创建，请检查以下字段："
+msgstr "The work order was not created. Check these fields:"
+
+msgid "带 * 的字段为必填项；编号、状态和创建人由系统自动填写。"
+msgstr "Fields marked with * are required; the number, status, and creator are filled in automatically."
+
+msgid "周期结束时间必须晚于工单开始生成日期。"
+msgstr "The recurrence end must be later than the work order generation start."
+
+msgid "工单已更新。"
+msgstr "Work order updated."
+
+msgid "你没有权限执行该操作。"
+msgstr "You do not have permission to perform this action."
+
+msgid "只支持 CSV 或 XLSX 文件。"
+msgstr "Only CSV or XLSX files are supported."
+
+msgid "导入文件不能超过 4 MB。"
+msgstr "The import file cannot exceed 4 MB."
+
+msgid "导入完成：成功 %(success)s 行，失败 %(failed)s 行。"
+msgstr "Import complete: %(success)s succeeded and %(failed)s failed."
+
+msgid "导入完成：成功 %(success)s 行。"
+msgstr "Import complete: %(success)s succeeded."
+
+msgid "美西时间"
+msgstr "Pacific Time"
+
+msgid "美中时间"
+msgstr "Central Time"
+
+msgid "美东时间"
+msgstr "Eastern Time"
+
+msgid "个人信息"
+msgstr "Personal information"
+
+msgid "权限"
+msgstr "Permissions"
+
+msgid "重要日期"
+msgstr "Important dates"
+
+msgid "admin 账号只能查看，不能删除。"
+msgstr "The admin account is read-only and cannot be deleted."
+
+msgid "投产"
+msgstr "In production"
+
+msgid "试运行"
+msgstr "Trial operation"
+
+msgid "调试"
+msgstr "Commissioning"
+
+msgid "废弃"
+msgstr "Discarded"
+
+msgid "该仓库没有可用设备"
+msgstr "This warehouse has no available equipment"
+
+msgid "已投产的自动化设备"
+msgstr "Automation equipment in production"
+
+msgid "你没有创建工单的权限。"
+msgstr "You do not have permission to create work orders."
+
+msgid "工单任务信息有误，请检查后重试。"
+msgstr "The work-order task information is invalid. Review it and try again."
+
+msgid "工单任务（可选）"
+msgstr "Work-order tasks (optional)"
+
+msgid "创建工单时直接添加执行步骤和照片要求"
+msgstr "Add execution steps and photo requirements while creating the work order"
+
+msgid "添加任务"
+msgstr "Add task"
+
+msgid "删除任务"
+msgstr "Remove task"
+
+msgid "现场照片"
+msgstr "On-site photo"
+
+msgid "必须上传现场照片"
+msgstr "On-site photo required"
+
+msgid "查看已上传照片"
+msgstr "View uploaded photo"
+
+msgid "现场照片（必填）"
+msgstr "On-site photo (required)"
+
+msgid "现场照片（可选）"
+msgstr "On-site photo (optional)"
+
+msgid "该任务必须上传现场照片后才能完成。"
+msgstr "This task requires an on-site photo before it can be completed."
+
+msgid "现场照片必须是 JPG、PNG 或 WebP 图片，且不超过 4 MB。"
+msgstr "The on-site photo must be a JPG, PNG, or WebP image no larger than 4 MB."
+
+msgid "导出日报"
+msgstr "Export daily report"
+
+msgid "导出周报"
+msgstr "Export weekly report"
+
+msgid "日报"
+msgstr "daily report"
+
+msgid "周报"
+msgstr "weekly report"
+
+msgid "汇总"
+msgstr "Summary"
+
+msgid "MMS 工单%(report)s"
+msgstr "MMS work-order %(report)s"
+
+msgid "统计周期"
+msgstr "Reporting period"
+
+msgid "生成时间"
+msgstr "Generated at"
+
+msgid "工单总数"
+msgstr "Total work orders"
+
+msgid "待处理工单"
+msgstr "Work orders requiring action"
+
+msgid "已完成/关闭"
+msgstr "Completed / closed"
+
+msgid "状态分布"
+msgstr "Status breakdown"
+
+msgid "数量"
+msgstr "Count"
+
+msgid "仓库分布"
+msgstr "Warehouse breakdown"
+
+msgid "工单明细"
+msgstr "Work-order details"
+
+msgid "任务数"
+msgstr "Task count"
+
+msgid "已完成任务数"
+msgstr "Completed task count"
+
+msgid "请选择仓库"
+msgstr "Select a warehouse"
+
+msgid "请选择设备分类"
+msgstr "Select an equipment category"
+
+msgid "你没有录入设备的权限。"
+msgstr "You do not have permission to add equipment."
+
+msgid "设备 %(code)s 已创建。"
+msgstr "Equipment %(code)s was created."
+
+msgid "新增自动化设备"
+msgstr "Add automation equipment"
+
+msgid "选择所属仓库和设备分类，录入设备铭牌、位置与运行状态。"
+msgstr "Select the warehouse and category, then enter the nameplate, location, and operating status."
+
+msgid "设备未创建，请检查以下字段："
+msgstr "The equipment was not created. Review these fields:"
+
+msgid "设备信息"
+msgstr "Equipment information"
+
+msgid "带 * 的字段为必填项"
+msgstr "Fields marked with * are required"
+
+msgid "创建设备"
+msgstr "Create equipment"
+
+msgid "设备导入"
+msgstr "Equipment import"
+
+msgid "选项"
+msgstr "Options"
+
+msgid "请选择模板下拉列表中的有效值。"
+msgstr "Select a valid value from the template list."
+
+msgid "无效选项"
+msgstr "Invalid option"
+
+msgid "请选择"
+msgstr "Select a value"
+
+msgid "选择设备所属仓库编码。"
+msgstr "Select the equipment warehouse code."
+
+msgid "选择已存在的设备分类编码。"
+msgstr "Select an existing equipment category code."
+
+msgid "选择设备关键度。"
+msgstr "Select the equipment criticality."
+
+msgid "选择设备运行状态。"
+msgstr "Select the equipment operating status."
+
+msgid "下载模板并使用下拉选项填写仓库、分类、关键度和状态；上传时选择的目标仓库必须与模板一致。"
+msgstr "Download the template and use its lists for warehouse, category, criticality, and status. The upload target warehouse must match the template."
+
+msgid "下载 Excel 模板"
+msgstr "Download Excel template"
+
+msgid "CSV 无法保存下拉选项；请使用 Excel 模板获得下拉选择，系统仍支持导入 UTF-8 CSV。"
+msgstr "CSV cannot store dropdown lists. Use the Excel template for dropdowns; UTF-8 CSV import remains supported."
+
+msgid "工单从该时间开始出现在相关人员的工作台；周期性工单从该时间计算后续生成时间。"
+msgstr "The work order appears on the assigned users' dashboard at this time; recurring generation is calculated from this time."
+
+msgid "任务时间"
+msgstr "Task duration"
+
+msgid "从工单开始生成起允许的处理时长，单位为小时。"
+msgstr "Allowed processing time after the work order appears, in hours."
+
+msgid "超过任务时间仍未完成"
+msgstr "Still incomplete after the task duration"
+
+msgid "剩余时间"
+msgstr "Time remaining"
+
+msgid "小时"
+msgstr "hours"
+
+msgid "当前没有已开始生成的工单。"
+msgstr "There are no work orders whose start time has arrived."
+
+msgid "%(hours)s 小时"
+msgstr "%(hours)s hours"
+
+msgid "逾期时间"
+msgstr "Overdue at"
+
+msgid "任务时间（小时）"
+msgstr "Task duration (hours)"
+
+msgid "周期期次"
+msgstr "Cycle number"
+
+msgid "工单时区"
+msgstr "Work order time zone"
+
+msgid "最近生成期次"
+msgstr "Last generated cycle"
+
+msgid "（第 %(number)s 期）"
+msgstr "(Cycle %(number)s)"

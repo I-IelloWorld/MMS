@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load humanize i18n tz %}
+{% block title %}{% translate '工作台' %}{% endblock %}
+{% block eyebrow %}OPERATIONS / TODAY{% endblock %}
+{% block page_title %}{% translate '运行工作台' %}{% endblock %}
+{% block content %}
+<section class="command-hero">
+  <div>
+    <p class="kicker">MAINTENANCE PULSE · {% now 'Y.m.d' %}</p>
+    <h1>{% translate '把维护窗口，留在故障发生之前。' %}</h1>
+    <p>{% blocktranslate with count=warehouses.count %}当前账号覆盖 {{ count }} 个仓库。设备、工单与工程师在同一个运行视图中持续对齐。{% endblocktranslate %}</p>
+    <div class="page-actions">
+      {% if can_manage_work_orders %}<a class="button primary" href="{% url 'workorders:create' %}">{% translate '创建工单' %} <span>+</span></a>{% endif %}
+      <a class="button" href="{% url 'data-imports:equipment' %}">{% translate '导入自动化设备' %}</a>
+      <a class="button" href="{% url 'dashboard:report' 'daily' %}">{% translate '导出日报' %}</a>
+      <a class="button" href="{% url 'dashboard:report' 'weekly' %}">{% translate '导出周报' %}</a>
+    </div>
+  </div>
+  <div class="hero-dial" aria-label="{% translate '工单健康度' %}">
+    <div class="dial-ring"><strong>{{ stats.open }}</strong><span>{% translate '开放工单' %}</span></div>
+    <div class="dial-note"><i></i> {% blocktranslate with count=stats.overdue %}{{ count }} 项已逾期{% endblocktranslate %}</div>
+  </div>
+</section>
+
+<section class="metric-grid">
+  <article class="metric-card accent-teal"><span>ASSET FLEET</span><strong>{{ stats.equipment|intcomma }}</strong><p>{% translate '已投产的自动化设备' %}</p></article>
+  <article class="metric-card accent-orange"><span>OPEN ORDERS</span><strong>{{ stats.open|intcomma }}</strong><p>{% translate '仍需推进的维保工单' %}</p></article>
+  <article class="metric-card accent-red"><span>OVERDUE</span><strong>{{ stats.overdue|intcomma }}</strong><p>{% translate '超过任务时间仍未完成' %}</p></article>
+  <article class="metric-card accent-yellow"><span>NEXT 7 DAYS</span><strong>{{ stats.due_week|intcomma }}</strong><p>{% translate '未来七天开始生成的工单' %}</p></article>
+</section>
+
+<section class="dashboard-grid">
+  <div class="panel work-panel">
+    <div class="panel-header"><div><h2>{% translate '优先处理队列' %}</h2><p>{% translate '按开始生成日期排序的仓库工单' %}</p></div><a class="text-link" href="{% url 'workorders:list' %}">{% translate '查看全部' %} →</a></div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr><th>{% translate '工单' %}</th><th>{% translate '设备 / 仓库' %}</th><th>{% translate '负责人' %}</th><th>{% translate '开始生成' %}</th><th>{% translate '剩余时间' %}</th><th>{% translate '状态' %}</th></tr></thead>
+        <tbody>
+        {% for order in recent_work_orders %}
+          <tr>
+            <td><a class="cell-title mono" href="{% url 'workorders:detail' order.id %}">{{ order.number }}</a><span class="cell-sub">{{ order.title|truncatechars:28 }}{% if order.recurrence_label %} {{ order.recurrence_label }}{% endif %}</span></td>
+            <td><span class="cell-title">{{ order.equipment.name }}</span><span class="cell-sub">{{ order.warehouse.code }} · {{ order.equipment.asset_code }}</span></td>
+            {% translate '待认领' as unassigned %}
+            <td>{{ order.assignee|default:unassigned }}</td>
+            <td><span class="cell-title">{{ order.due_at|timezone:order.timezone|date:'m-d H:i' }}</span><span class="cell-sub">{{ order.get_timezone_display }}</span></td>
+            <td>{% if order.is_overdue %}<span class="danger-text">{% translate '已逾期' %}</span>{% elif order.remaining_hours != None %}<span class="cell-title">{{ order.remaining_hours }} {% translate '小时' %}</span>{% else %}<span class="cell-sub">—</span>{% endif %}</td>
+            <td><span class="status status-{{ order.status|lower }}">{{ order.get_status_display }}</span></td>
+          </tr>
+        {% empty %}<tr><td colspan="6" class="panel-empty">{% translate '当前没有已开始生成的工单。' %}</td></tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <aside class="panel schedule-panel">
+    <div class="panel-header"><div><h2>{% translate '周期性工单' %}</h2><p>{% translate '按下一生成时间自动排队' %}</p></div></div>
+    <div class="schedule-list">
+      {% for order in recurring_orders %}
+        <article>
+          <time><strong>{{ order.next_occurrence_at|timezone:order.timezone|date:'d' }}</strong><span>{{ order.next_occurrence_at|timezone:order.timezone|date:'M' }}</span></time>
+          <div><strong>{{ order.display_title }}</strong><span>{{ order.warehouse.code }} · {{ order.equipment.name }}{% if order.component %} / {{ order.component.name }}{% endif %}</span><span>{{ order.next_occurrence_at|timezone:order.timezone|date:'H:i' }} · {{ order.get_timezone_display }}</span></div>
+          <b class="priority priority-{{ order.priority|lower }}">{{ order.get_priority_display }}</b>
+        </article>
+      {% empty %}<div class="panel-empty">{% translate '暂无运行中的周期性工单。' %}</div>{% endfor %}
+    </div>
+    <a class="schedule-cta" href="{% url 'workorders:list' %}?schedule_type=RECURRING">{% translate '查看周期工单' %} <span>→</span></a>
+  </aside>
+</section>
+{% endblock %}
